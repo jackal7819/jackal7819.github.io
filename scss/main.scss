@@ -1,0 +1,753 @@
+@import 'vars';
+@import 'mixins';
+@import 'extends';
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Work+Sans:wght@400;700&display=swap');
+
+html, body {
+    @include font($main-font-family, $main-font-size, 400, 26px, $main-font-color);
+    overflow-x: hidden;
+    margin: 0;
+}
+
+// ---------- Header ---------
+
+.header { 
+    position: relative;
+
+    &__nav {
+        @extend %flex-between;
+        margin: 20px 0;
+        gap: 120px;
+
+        & :first-child {
+            align-self: center;
+        }
+
+        & :nth-child(3) {
+            margin-left: auto;
+
+            @media (max-width: 768px) {
+                margin-left: 0;
+            }
+        }
+
+        @media (max-width: 992px) {
+            gap: 30px;
+        }
+    }
+
+    &__logo {
+        @include size(45px, 35px);
+    }
+}
+
+.nav {
+
+    @media (max-width: 768px) {
+        order: 2;
+    }
+
+    &__burger {
+        
+        display: none;
+
+        @media (max-width: 768px) {
+            &:checked ~ .menu {
+                right: 0;
+                visibility: visible;
+            }
+
+            &:checked ~ .nav__burger-img {
+                transform: rotate(45deg);
+
+                &::before {
+                    visibility: hidden;
+                }
+
+                &::after {
+                    transform: rotate(90deg);
+                    top: 0;
+                }
+            }
+        }
+    }
+
+    &__burger-img {
+        display: none;
+
+        @media (max-width: 768px) {
+            @include size(40px, 2px);
+            position: relative;
+            display: inline-block;
+            background: $main-back-color;
+            top: 17px;
+            right: 0;
+            vertical-align: middle;
+
+            &::before,
+            &::after {
+                content: '';
+                position: absolute;
+                display: inline-block;
+                @include size(100%, 2px);
+                background: $main-back-color;
+                top: 9px;
+            }
+
+            &::after {
+                top: -9px;
+            }
+        }
+    }
+}
+
+.menu {
+    @extend %flex-between;
+    gap: 40px;
+    transition: all 1s;
+   
+    @media (max-width: 992px) {
+        gap: 15px;
+    }
+
+    @media (max-width: 768px) {
+        & :first-child {
+            align-self: normal;
+        }
+    }
+
+    @media (max-width: 768px) {
+        position: absolute;
+        visibility: hidden;
+        right: -100%;
+        top: 44px;
+        width: 100%;
+        min-width: 300px;
+        max-width: 400px;
+        flex-direction: column;
+        z-index: 4;
+        background: #CCDDFF;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+
+    &__item {
+        list-style-type: none;
+        margin: 0 20px;
+
+        @media (max-width: 768px) {
+            margin: 0 0;
+            padding: 15px 20px;
+            text-align: center;
+            box-shadow: inset 0 0 4px 1px #1c5371;
+        }
+    }
+
+    &__link,
+    &__link:active {
+        text-decoration: none;
+        @include font($main-font-family, $main-font-size, 500, 26px, $main-font-color);
+
+        &:hover {
+            color: #8A40EE;
+        }
+    }
+}
+
+.btns {
+    background: transparent;
+    padding: 15px 20px;
+    border: 1px solid $main-back-color;
+    border-radius: 50px;
+    transition: all 0.2s linear;
+    @include size(210px, 60px);
+    text-align: center;
+    box-sizing: border-box;
+    position: relative;
+
+    &_header {
+        @media (max-width: 768px) {
+            order: 1;
+        }
+    }
+
+    &_footer {
+        @media (max-width: 768px) {
+            margin-top: -50px;
+        }
+
+        @media (max-width: 576px) {
+            margin: 0;
+        }
+    }
+
+    &:hover .arrow,
+    &:hover .btns__btn{
+        color: #fff;
+    }
+
+    &:hover {
+        background: $main-back-color;
+    }
+
+    &__btn {
+        text-decoration: none;
+        @include font($main-font-family, $main-font-size, 500, 26px, $title-font-color);
+    }
+}
+
+// ---------- Main ---------
+
+.header,
+.main,
+.footer {
+    padding: 0 calc(50% - 585px);
+
+    @media (max-width: 992px) {
+        padding: 0 calc(50% - 400px);
+    }
+
+    @media (max-width: 768px) {
+        padding: 0 calc(50% - 300px);
+    }
+    
+    @media (max-width: 576px) {
+        padding: 0 calc(50% - 200px);
+    }
+
+}
+
+.save {
+    position: relative;
+    margin: 100px 0;
+
+    @media (max-width: 992px) {
+        margin: 50px 10px;
+    }
+
+    &__title {
+        @include font($title-font-family, 5rem, 700, 5.5rem, $title-font-color);
+        max-width: 700px; 
+        
+        @media (max-width: 992px) {
+            max-width: 90%;
+            text-align: center;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            @include font($title-font-family, 4rem, 700, 4.5rem, $title-font-color);
+        }
+
+        @media (max-width: 576px) {
+            @include font($title-font-family, 2.5rem, 700, 3.5rem, $title-font-color);
+        }
+    }
+
+    &__text {
+        @include font($main-font-family, 1.125rem, 500, 1.6rem, $main-font-color);
+        max-width: 370px;
+        margin: 50px 0;
+
+        @media (max-width: 992px) {
+            padding: 0 calc(50% - 170px);
+        }
+    }
+
+    &__btns {
+        background: $main-back-color;
+
+        @media (max-width: 992px) {
+            margin: 0 auto;
+            margin-bottom: 50px;
+        }
+
+        &:hover .arrow,
+        &:hover .btns__btn{
+            color: $main-back-color;
+        }
+    
+        &:hover {
+            background: #fff;
+        }
+    }
+
+    &__btn {
+        color: #fff;
+    }
+
+    &__img {
+        position: absolute;
+        left: 400px;
+        top: 90px;
+        max-width: 100%;
+
+        @media (max-width: 992px) {
+            position: relative;
+            left: 0;
+            top: 0;
+            max-width: 90%;
+            display: block;
+            margin: 0 auto;
+        }
+    }
+}
+
+.who {
+    display: flex;
+    justify-content: space-around;
+    background: #fde8f5;
+    border-radius: 50px;
+    box-sizing: border-box;
+    padding: 70px;
+    margin: 120px 0;
+    align-items: center;
+
+    @media (max-width: 992px) {
+        flex-direction: column;
+        max-width: 90%;
+        margin: 0 auto;
+    }
+   
+    @media (max-width: 576px) {
+        padding: 20px;
+    }
+
+    &__img {
+        max-width: 400px;
+        max-height: 410px;
+        width: 100%;
+    }
+
+    &__content {
+        max-width: 500px;
+    }
+
+    &__title {
+        @include font($title-font-family, 2.5rem, 700, 3rem, $title-font-color);
+        max-width: 700px;
+                
+        @media (max-width: 576px) {
+            @include font($title-font-family, 2rem, 700, 2.5rem, $main-font-color);
+        }
+    }
+
+    &__text {
+        @include font($main-font-family, 1.125rem, 500, 1.6rem, $main-font-color);
+        max-width: 500px;
+    }
+}
+
+.features {
+  
+    &__title {
+        @include font($title-font-family, 2.5rem, 700, 3.2rem, $title-font-color);
+        text-align: center;
+    }
+
+    &__subtitle {
+        @include font($main-font-family, 1.125rem, 500, 1.6rem, $main-font-color);
+        max-width: 640px;
+        margin: 0 auto;
+        text-align: center;
+
+        @media (max-width: 992px) {
+            max-width: 390px;           
+        }
+
+        @media (max-width: 576px) {
+            max-width: 340px;           
+        }
+    }
+}
+
+.cards {
+    display: flex;
+    justify-content: end;
+    gap: 50px;
+    flex-wrap: wrap;
+    margin: 80px 0;
+
+    @media (max-width: 992px) {
+        justify-content: center;
+    }
+
+    @media (max-width: 576px) {
+        gap: 60px;
+    }
+
+    &__item {
+        @include size(230px, 280px);
+        position: relative;
+        border-radius: 50px;
+        margin-left: 150px;
+        padding: 60px 70px 60px 100px;
+
+        @media (max-width: 576px) {
+            margin: 0%;
+            @include size(90%, 100%);
+            padding: 80px 60px 60px 60px;
+            box-sizing: border-box;
+        }
+    
+        &_1 {
+            background: #F0FAF9;
+            z-index: 0;
+        }
+
+        &_2 {
+            background: #F6F0FD;
+            z-index: 0;
+        }
+
+        &_3 {
+            background: #FEF0F8;
+            z-index: 0;
+        }
+
+        &_4 {
+            background: #EAF6FC;
+            z-index: 0;
+        }
+    }
+
+    &__img {
+        position: absolute;
+        left: -170px;
+        top: 110px;
+
+        @media (max-width: 768px) {
+            max-width: 60%;
+            left: -140px;
+        }
+
+        @media (max-width: 576px) {
+            max-width: 35%;
+            left: 170px;
+            top: -50px;
+        }
+    }
+
+    &__bg {
+        position: absolute;
+        z-index: -1;
+
+        &_1 {
+            left: 155px;
+            top: 20px;
+        }
+
+        &_2 {
+            left: 170px;
+            top: 230px;
+        }
+
+        &_3 {
+            left: 315px;
+            top: 20px;
+        }
+
+        &_4 {
+            left: 20px;
+            top: 20px;
+        }
+    }
+
+    &__title {
+        @include font($title-font-family, 1.5rem, 400, 2rem, $title-font-color);
+        margin: 0;
+    }
+
+    &__link {
+        text-decoration: none;
+        @include font($main-font-family, $main-font-size, 700, 26px, $title-font-color);
+        position: absolute;
+        left: 100px;
+        bottom: 60px;
+
+        @media (max-width: 576px) {
+            max-width: 50%;
+            left: 100px;
+            bottom: 30px;
+        }
+    }
+}
+
+.testimonials {
+    margin: 120px 0;
+    background: url('../img/bg_image.png') #CCDDFF;
+    border-radius: 50px;
+    padding: 70px;
+    box-sizing: border-box;
+
+    @media (max-width: 992px) {
+        max-width: 90%;
+        margin: 30px auto;
+    }
+
+    @media (max-width: 576px) {
+        padding: 20px;
+    }
+
+    &__title {
+        @include font($title-font-family, 2.5rem, 700, 3rem, $main-font-color);
+        text-align: center;
+        margin-top: 0;
+        margin-bottom: 80px;
+       
+        @media (max-width: 992px) {
+            margin-bottom: 40px;
+        }
+    }
+}
+
+.reviews {
+    @extend %flex-between;
+    gap: 40px;
+
+    @media (max-width: 992px) {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    &__item {
+        max-width: 465px;
+        max-height: 300px;
+        border-radius: 50px;
+        background: #fff;
+        box-sizing: border-box;
+        padding: 50px 30px 50px 135px;
+        position: relative;
+
+        @media (max-width: 576px) {
+            padding: 20px;
+        }
+    }
+
+    &__photo {
+        position: absolute;
+        left: 30px;
+        top: 50px;
+        border-radius: 45px;
+
+        @media (max-width: 576px) {
+            left: 150px;
+            top: 0px;
+        }
+    }
+
+    &__title {
+        @include font($main-font-family, $main-font-size, 500, 26px, $title-font-color);
+        margin: 0;
+    }
+
+    &__link {
+        text-decoration: none;
+        @include font($main-font-family, 0.9rem, 500, 26px, $main-back-color);
+        letter-spacing: 0.01rem;
+    }
+}
+
+// ---------- Footer ---------
+
+.heading {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 30px;
+
+    @media (max-width: 768px) {
+        flex-wrap: wrap;
+    }
+
+    @media (max-width: 576px) {
+        justify-content: center;
+    }
+
+    & :first-child {
+        margin-right: auto;
+
+        @media (max-width: 576px) {
+            margin-right: 0;
+        }
+    }
+
+    &__btns {
+        background: #F063B8;
+
+        &:hover .arrow,
+        &:hover .btns__btn{
+            color: #F063B8;
+        }
+    
+        &:hover {
+            background: #fff;
+        }
+    }
+
+    &__btn {
+        color: #fff;
+    }
+
+    &__title {
+        @include font($title-font-family, 2.5rem, 700, 26px, $title-font-color);
+
+        @media (max-width: 992px) {
+            max-width: 290px;
+        }
+    }
+
+    &__text {
+        @include font($main-font-family, 1.125rem, 500, 26px, $main-font-color);
+    }
+}
+
+.navigation {
+    @extend %flex-between;
+
+    @media (max-width: 768px) {
+        flex-wrap: wrap;
+    }
+
+    @media (max-width: 576px) {
+        justify-content: space-around;
+    }
+}
+
+.contacts {
+    max-width: 275px;
+
+    &__logo {
+        margin-right: 20px;
+        line-height: 2rem;
+        vertical-align: bottom;
+    }
+
+    &__title {
+        @include font($main-font-family, 1.25rem, 600, 26px, $title-font-color);
+        margin-bottom: 43px;
+    }
+
+    &__subtitle {
+        @include font($main-font-family, $main-font-size, 500, 26px, $title-font-color);
+    }
+}
+
+.about {
+    max-width: 85px;
+
+    &__title {
+        @include font($main-font-family, $main-font-size, 600, 26px, $title-font-color);
+        margin-top: 46px;
+    }
+
+    &__link {
+        text-decoration: none;
+        @include font($main-font-family, $main-font-size, 500, 2rem, $main-font-color);
+
+        &:hover {
+            color: #8A40EE;
+        }
+    }
+}
+
+.help {
+    max-width: 85px;
+
+    &__title {
+        @include font($main-font-family, $main-font-size, 600, 26px, $title-font-color);
+        margin-top: 46px;
+
+        @media (max-width: 576px) {
+            margin-top: 20px;
+        }
+    }
+
+    &__link {
+        text-decoration: none;
+        @include font($main-font-family, $main-font-size, 500, 2rem, $main-font-color);
+
+        &:hover {
+            color: #8A40EE;
+        }
+    }
+}
+
+.social {
+    max-width: 180px;
+
+    @media (max-width: 768px) {
+        margin: 0 auto;
+        text-align: center;
+        margin-top: -20px;
+    }
+
+    @media (max-width: 576px) {
+        max-width: 110px;
+        margin: 0;
+    }
+
+    &__icons {
+        display: flex;
+        justify-content: space-around;
+        gap: 15px;
+        margin-top: 40px;
+
+        @media (max-width: 576px) {
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+
+    &__title {
+        @include font($main-font-family, $main-font-size, 600, 26px, $title-font-color);
+        margin-top: 46px;
+
+        @media (max-width: 576px) {
+            margin-top: 20px;
+        }
+    }
+
+    &__facebook {
+        @extend %icon;
+        background: url("../img/facebook.svg");
+
+        &:hover {
+            background: url("../img/facebook_hover.svg");
+        }
+    }
+
+    &__twitter {
+        @extend %icon;
+        background: url("../img/twitter.svg");
+
+        &:hover {
+            background: url("../img/twitter_hover.svg");
+        }
+    }
+
+    &__instagram {
+        @extend %icon;
+        background: url("../img/instagram.svg");
+
+        &:hover {
+            background: url("../img/instagram_hover.svg");
+        }
+    }
+}
+
+.copyright {
+    @include font($main-font-family, 0.75rem, 300, 26px, $title-font-color);
+    max-width: 275px;
+    margin-bottom: 60px;
+
+    @media (max-width: 768px) {
+        margin: 40px 0;
+    }
+}
+
+.arrow {
+    margin-left: 15px;
+    font-size: 1.5rem;
+    color: $main-back-color;
+}
